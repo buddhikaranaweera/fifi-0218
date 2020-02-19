@@ -10,7 +10,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>pixel-framework</artifactId>
-
+    <dependencies>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>pixel-domain</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
 
 </project>

@@ -12,6 +12,6 @@
         <module name="pixel-domain" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="12" />
+    <bytecodeTargetLevel target="13" />
   </component>
 </project>

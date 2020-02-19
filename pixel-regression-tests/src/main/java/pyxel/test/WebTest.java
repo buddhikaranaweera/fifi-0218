@@ -10,18 +10,16 @@ public class WebTest extends BaseTest {
     public void WebTestSTS() {
         StaysureHome stay = new StaysureHome(getDriver());
 
-        gotoURL();
-        clickGetQuote();
-        selectSingleTrip();
-        selectCruise();
-        toDestination();
-        addDestinations ();
-        multipleDestination();
-        departureDate();
-        returnDate();
-        partyType();
-        orgAge();
-        travellerDetailsSubmit();
+        url_sts();
+        policy_type_annual_multi_trip();
+        policy_type_single_trip();
+        going_on_cruise_yes();
+        going_on_cruise_no();
+        to_location();
+        multiple_destinations_no();
+        single_trip_start_date();
+        single_trip_policy_end_date();
+
     }
 
 
