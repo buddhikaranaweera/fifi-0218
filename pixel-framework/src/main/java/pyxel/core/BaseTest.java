@@ -63,12 +63,12 @@ public class BaseTest extends varyables {
     }
 
     public void policy_type_single_trip() {
-        WebElement policy_type_single_trip = this.driver.findElement(By.cssSelector("#cover > div > div:nth-child(2) > label > svg"));
+        WebElement policy_type_single_trip = this.driver.findElement(By.xpath("//span[text()='Single Trip']"));
         policy_type_single_trip.click();
     }
 
     public void policy_type_annual_multi_trip() {
-        WebElement policy_type_annual_multi_trip = this.driver.findElement(By.cssSelector("#cover > div:nth-child(2) > div:nth-child(3) > label:nth-child(1)"));
+        WebElement policy_type_annual_multi_trip = this.driver.findElement(By.xpath("//span[text()='Annual Multi Trip']"));
         policy_type_annual_multi_trip.click();
     }
 
