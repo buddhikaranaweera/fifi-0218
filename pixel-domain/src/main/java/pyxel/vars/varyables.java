@@ -1,5 +1,8 @@
 package pyxel.vars;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
 public class varyables {
     public String COUNTRY_EUROPE_LR     = "Italy";
     public String COUNTRY_EUROPE_HR     = "Turkey";
@@ -23,7 +26,7 @@ public class varyables {
     public int TRAVELLER_AGE_GLOBAL     = 30;
 
     public int FULL_TIME_EDUCATION_AGE  = 21;
-    public int[] TRAVELLER_AGE = new int[] {18,19,20};
+    public int[] TRAVELLER_AGE = new int[] {30,0,18};
 
     public int START_YEAR_GLOBAL    = 2020;
     public int END_YEAR_GLOBAL      = 2020;
@@ -33,4 +36,7 @@ public class varyables {
 
     public int START_DATE_GLOBAL    = 8;
     public int END_DATE_GLOBAL      = 20;
+
+    public int[] MARKETING_PREFERENCES = new int[] {0};
+
 }

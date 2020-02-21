@@ -6,9 +6,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import pyxel.vars.varyables;
+
+import javax.print.DocFlavor;
 
 public class BaseTest extends varyables {
 
@@ -99,8 +102,8 @@ public class BaseTest extends varyables {
     }
 
     public void amt_area() {
-        Select amt_area = new Select(this.driver.findElement(By.id("#toLocationAnnual")));
-        amt_area.selectByValue (REGION_EUROPE_LR);
+        Select amt_area = new Select(this.driver.findElement(By.cssSelector("#toLocationAnnual")));
+        amt_area.selectByValue(REGION_EUROPE_LR);
     }
 
     public void multiple_destinations_yes() {
@@ -211,14 +214,75 @@ public class BaseTest extends varyables {
         full_time_education_no.click();
     }
 
-    public void traveller_ages_old() {
-        WebElement traveller_ages = this.driver.findElement(By.cssSelector("#traveler_age_1"));
-        traveller_ages.sendKeys(String.valueOf(TRAVELLER_AGE_GLOBAL));
+    public void marketing_preferences() {
+        WebElement marketing_preferences = this.driver.findElement(By.cssSelector("#opt-out-marketing-pref"));
+
+        if (marketing_preferences.isSelected()) {
+            WebElement marketing_telephone = this.driver.findElement(By.cssSelector("#marketingConsentOptions > div:nth-child(2) > label"));
+            WebElement marketing_email = this.driver.findElement(By.cssSelector("#marketingConsentOptions > div:nth-child(3) > label"));
+            WebElement marketing_post = this.driver.findElement(By.cssSelector("#marketingConsentOptions > div:nth-child(4) > label"));
+            WebElement marketing_sms = this.driver.findElement(By.cssSelector("#marketingConsentOptions > div:nth-child(5) > label"));
+
+            switch (MARKETING_PREFERENCES) {
+                case "t":
+                    marketing_telephone.click();
+                case "e":
+                    marketing_email.click();
+                case "p":
+                    marketing_post.click();
+                case "s":
+                    marketing_sms.click();
+
+            }
+        }
     }
 
     public void travellerDetailsSubmit() {
         WebElement submitButton = this.driver.findElement(By.cssSelector("#btnSubmit"));
         submitButton.click();
     }
+
+    public void validation_req_fields() {
+        WebElement policyTypeError = this.driver.findElement(By.cssSelector("#policyTypeError"));
+        WebElement goingCruiseError = this.driver.findElement(By.cssSelector("#going-cruiseError"));
+        WebElement destinationLocationError = this.driver.findElement(By.cssSelector("#destinationLocationError"));
+        WebElement departureDateError = this.driver.findElement(By.cssSelector("#departureDateError"));
+        WebElement returnDateError = this.driver.findElement(By.cssSelector("#returnDateError"));
+        WebElement noOfTravellersError = this.driver.findElement(By.cssSelector("#no-of-travellersError"));
+        WebElement ageError = this.driver.findElement(By.cssSelector("#ageError"));
+        WebElement marketingPrefError = this.driver.findElement(By.cssSelector("#marketing-pref-error"));
+
+        if (policyTypeError.isDisplayed()) {
+            System.out.println(policyTypeError.getText());
+        }
+        else if (goingCruiseError.isDisplayed()) {
+            System.out.println(goingCruiseError.getText());
+        }
+        else if (destinationLocationError.isDisplayed()) {
+            System.out.println(destinationLocationError.getText());
+        }
+        else if (departureDateError.isDisplayed()) {
+            System.out.println(departureDateError.getText());
+        }
+        else if (returnDateError.isDisplayed()) {
+            System.out.println(returnDateError.getText());
+        }
+        else if (noOfTravellersError.isDisplayed()) {
+            System.out.println(noOfTravellersError.getText());
+        }
+        else if (ageError.isDisplayed()) {
+            System.out.println(ageError.getText());
+        }
+        else if (marketingPrefError.isDisplayed()) {
+            System.out.println(marketingPrefError.getText());
+        }
+        else {
+            WebElement submitButton = this.driver.findElement(By.cssSelector("#btnSubmit"));
+            submitButton.click();
+        }
+
+    }
+
+
 
 }
