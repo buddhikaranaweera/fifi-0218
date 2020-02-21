@@ -3,6 +3,9 @@ package pyxel.vars;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class varyables {
     public String COUNTRY_EUROPE_LR     = "Italy";
     public String COUNTRY_EUROPE_HR     = "Turkey";
@@ -37,7 +40,9 @@ public class varyables {
     public int START_DATE_GLOBAL    = 8;
     public int END_DATE_GLOBAL      = 20;
 
-    public String[] MARKETING_PREFERENCES = new String[] {"T","","","S"};
+    public List<String> MARKETING_PREFERENCES_OPT = Arrays.asList(
+           "TELEPHONE", "EMAIL", "POST", "SMS"
+    );
 
 
 }

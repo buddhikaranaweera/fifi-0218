@@ -12,6 +12,8 @@ import org.testng.annotations.BeforeSuite;
 import pyxel.vars.varyables;
 
 import javax.print.DocFlavor;
+import java.util.Arrays;
+import java.util.List;
 
 public class BaseTest extends varyables {
 
@@ -226,23 +228,23 @@ public class BaseTest extends varyables {
         WebElement marketing_post       = this.driver.findElement(By.cssSelector("#marketingConsentOptions > div:nth-child(4) > label"));
         WebElement marketing_sms        = this.driver.findElement(By.cssSelector("#marketingConsentOptions > div:nth-child(5) > label"));
 
-        for (int i = 0; i <= 3; i++) {
-            switch (MARKETING_PREFERENCES[i]) {
-                case "T":
+        for(int m = 0; m < MARKETING_PREFERENCES_OPT.size(); m++) {
+            switch (MARKETING_PREFERENCES_OPT.get(m)) {
+                case "TELEPHONE":
                     marketing_telephone.click();
                     break;
-                case "E":
+                case "EMAIL":
                     marketing_email.click();
                     break;
-                case "P":
+                case "POST":
                     marketing_post.click();
                     break;
-                case "S":
+                case "SMS":
                     marketing_sms.click();
                     break;
             }
-
         }
+
     }
 
     public void travellerDetailsSubmit() {
@@ -251,41 +253,21 @@ public class BaseTest extends varyables {
     }
 
     public void validation_req_fields() {
+        travellerDetailsSubmit();
 
-        if (this.driver.findElement(By.cssSelector("#policyTypeError")).isDisplayed()) {
-            WebElement policyTypeError = this.driver.findElement(By.cssSelector("#policyTypeError"));
-            System.out.println(policyTypeError.getText());
-        }
-        else if (this.driver.findElement(By.cssSelector("#going-cruiseError")).isDisplayed()) {
-            WebElement goingCruiseError = this.driver.findElement(By.cssSelector("#going-cruiseError"));
-            System.out.println(goingCruiseError.getText());
-        }
-        else if (this.driver.findElement(By.cssSelector("#destinationLocationError")).isDisplayed()) {
-            WebElement destinationLocationError = this.driver.findElement(By.cssSelector("#destinationLocationError"));
-            System.out.println(destinationLocationError.getText());
-        }
-        else if (this.driver.findElement(By.cssSelector("#departureDateError")).isDisplayed()) {
-            WebElement departureDateError = this.driver.findElement(By.cssSelector("#returnDateError"));
-            System.out.println(departureDateError.getText());        }
+        List<String> elementArray = Arrays.asList(
+                "#policyTypeError", "#going-cruiseError", "#destinationLocationError", "#departureDateError",
+                "#returnDateError", "#returnDateError", "#no-of-travellersError", "#ageError", "#marketing-pref-error"
+        );
 
-        else if (this.driver.findElement(By.cssSelector("#returnDateError")).isDisplayed()) {
-            WebElement returnDateError = this.driver.findElement(By.cssSelector("#returnDateError"));
-            System.out.println(returnDateError.getText());
-        }
-        else if (this.driver.findElement(By.cssSelector("#no-of-travellersError")).isDisplayed()) {
-            WebElement noOfTravellersError = this.driver.findElement(By.cssSelector("#no-of-travellersError"));
-            System.out.println(noOfTravellersError.getText());
-        }
-        else if (this.driver.findElement(By.cssSelector("#ageError")).isDisplayed()) {
-            WebElement ageError = this.driver.findElement(By.cssSelector("#ageError"));
-            System.out.println(ageError.getText());
-        }
-        else if (this.driver.findElement(By.cssSelector("#marketing-pref-error")).isDisplayed()) {
-            WebElement marketingPrefError = this.driver.findElement(By.cssSelector("#marketing-pref-error"));
-            System.out.println(marketingPrefError.getText());
-        }
-        else {
-            travellerDetailsSubmit();
+        for(String element : elementArray) {
+            if (this.driver.findElement(By.cssSelector(element)).isDisplayed()) {
+                WebElement policyTypeError = this.driver.findElement(By.cssSelector(element));
+                System.out.println(policyTypeError.getText());
+            }
+            else {
+                travellerDetailsSubmit();
+            }
         }
 
     }

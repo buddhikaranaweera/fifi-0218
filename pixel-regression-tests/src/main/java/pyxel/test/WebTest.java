@@ -22,7 +22,7 @@ public class WebTest extends BaseTest {
         to_location();
         multiple_destinations_yes();
         single_trip_start_date();
-        single_trip_end_date();
+        //single_trip_end_date();
         party_type();
         traveller_ages();
         marketing_preferences();
