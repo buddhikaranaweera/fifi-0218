@@ -11,7 +11,7 @@ import pyxel.page.objects.StaysureHome;
 
 public class WebTest extends BaseTest {
 
-    //@Test
+    @Test
     public void WebTestSTS() {
         StaysureHome stay = new StaysureHome(getDriver());
 
@@ -24,9 +24,10 @@ public class WebTest extends BaseTest {
         single_trip_start_date();
         single_trip_end_date();
         party_type();
-        //number_of_travellers();
         traveller_ages();
-        travellerDetailsSubmit();
+        marketing_preferences();
+        //travellerDetailsSubmit();
+        //validation_req_fields();
 
     }
 
@@ -43,7 +44,7 @@ public class WebTest extends BaseTest {
         travellerDetailsSubmit();
     }
 
-    @Test
+    //@Test
     public void required_fields() {
         url_sts();
         travellerDetailsSubmit();

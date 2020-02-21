@@ -37,6 +37,7 @@ public class varyables {
     public int START_DATE_GLOBAL    = 8;
     public int END_DATE_GLOBAL      = 20;
 
-    public int[] MARKETING_PREFERENCES = new int[] {0};
+    public String[] MARKETING_PREFERENCES = new String[] {"T","","","S"};
+
 
 }

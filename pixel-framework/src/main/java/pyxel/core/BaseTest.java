@@ -216,24 +216,32 @@ public class BaseTest extends varyables {
 
     public void marketing_preferences() {
         WebElement marketing_preferences = this.driver.findElement(By.cssSelector("#opt-out-marketing-pref"));
+        marketing_preferences.click();
+        marketing_preferences_opt_out();
+    }
 
-        if (marketing_preferences.isSelected()) {
-            WebElement marketing_telephone = this.driver.findElement(By.cssSelector("#marketingConsentOptions > div:nth-child(2) > label"));
-            WebElement marketing_email = this.driver.findElement(By.cssSelector("#marketingConsentOptions > div:nth-child(3) > label"));
-            WebElement marketing_post = this.driver.findElement(By.cssSelector("#marketingConsentOptions > div:nth-child(4) > label"));
-            WebElement marketing_sms = this.driver.findElement(By.cssSelector("#marketingConsentOptions > div:nth-child(5) > label"));
+    public void marketing_preferences_opt_out() {
+        WebElement marketing_telephone  = this.driver.findElement(By.cssSelector("#marketingConsentOptions > div:nth-child(2) > label"));
+        WebElement marketing_email      = this.driver.findElement(By.cssSelector("#marketingConsentOptions > div:nth-child(3) > label"));
+        WebElement marketing_post       = this.driver.findElement(By.cssSelector("#marketingConsentOptions > div:nth-child(4) > label"));
+        WebElement marketing_sms        = this.driver.findElement(By.cssSelector("#marketingConsentOptions > div:nth-child(5) > label"));
 
-            switch (MARKETING_PREFERENCES) {
-                case "t":
+        for (int i = 0; i <= 3; i++) {
+            switch (MARKETING_PREFERENCES[i]) {
+                case "T":
                     marketing_telephone.click();
-                case "e":
+                    break;
+                case "E":
                     marketing_email.click();
-                case "p":
+                    break;
+                case "P":
                     marketing_post.click();
-                case "s":
+                    break;
+                case "S":
                     marketing_sms.click();
-
+                    break;
             }
+
         }
     }
 
@@ -243,42 +251,41 @@ public class BaseTest extends varyables {
     }
 
     public void validation_req_fields() {
-        WebElement policyTypeError = this.driver.findElement(By.cssSelector("#policyTypeError"));
-        WebElement goingCruiseError = this.driver.findElement(By.cssSelector("#going-cruiseError"));
-        WebElement destinationLocationError = this.driver.findElement(By.cssSelector("#destinationLocationError"));
-        WebElement departureDateError = this.driver.findElement(By.cssSelector("#departureDateError"));
-        WebElement returnDateError = this.driver.findElement(By.cssSelector("#returnDateError"));
-        WebElement noOfTravellersError = this.driver.findElement(By.cssSelector("#no-of-travellersError"));
-        WebElement ageError = this.driver.findElement(By.cssSelector("#ageError"));
-        WebElement marketingPrefError = this.driver.findElement(By.cssSelector("#marketing-pref-error"));
 
-        if (policyTypeError.isDisplayed()) {
+        if (this.driver.findElement(By.cssSelector("#policyTypeError")).isDisplayed()) {
+            WebElement policyTypeError = this.driver.findElement(By.cssSelector("#policyTypeError"));
             System.out.println(policyTypeError.getText());
         }
-        else if (goingCruiseError.isDisplayed()) {
+        else if (this.driver.findElement(By.cssSelector("#going-cruiseError")).isDisplayed()) {
+            WebElement goingCruiseError = this.driver.findElement(By.cssSelector("#going-cruiseError"));
             System.out.println(goingCruiseError.getText());
         }
-        else if (destinationLocationError.isDisplayed()) {
+        else if (this.driver.findElement(By.cssSelector("#destinationLocationError")).isDisplayed()) {
+            WebElement destinationLocationError = this.driver.findElement(By.cssSelector("#destinationLocationError"));
             System.out.println(destinationLocationError.getText());
         }
-        else if (departureDateError.isDisplayed()) {
-            System.out.println(departureDateError.getText());
-        }
-        else if (returnDateError.isDisplayed()) {
+        else if (this.driver.findElement(By.cssSelector("#departureDateError")).isDisplayed()) {
+            WebElement departureDateError = this.driver.findElement(By.cssSelector("#returnDateError"));
+            System.out.println(departureDateError.getText());        }
+
+        else if (this.driver.findElement(By.cssSelector("#returnDateError")).isDisplayed()) {
+            WebElement returnDateError = this.driver.findElement(By.cssSelector("#returnDateError"));
             System.out.println(returnDateError.getText());
         }
-        else if (noOfTravellersError.isDisplayed()) {
+        else if (this.driver.findElement(By.cssSelector("#no-of-travellersError")).isDisplayed()) {
+            WebElement noOfTravellersError = this.driver.findElement(By.cssSelector("#no-of-travellersError"));
             System.out.println(noOfTravellersError.getText());
         }
-        else if (ageError.isDisplayed()) {
+        else if (this.driver.findElement(By.cssSelector("#ageError")).isDisplayed()) {
+            WebElement ageError = this.driver.findElement(By.cssSelector("#ageError"));
             System.out.println(ageError.getText());
         }
-        else if (marketingPrefError.isDisplayed()) {
+        else if (this.driver.findElement(By.cssSelector("#marketing-pref-error")).isDisplayed()) {
+            WebElement marketingPrefError = this.driver.findElement(By.cssSelector("#marketing-pref-error"));
             System.out.println(marketingPrefError.getText());
         }
         else {
-            WebElement submitButton = this.driver.findElement(By.cssSelector("#btnSubmit"));
-            submitButton.click();
+            travellerDetailsSubmit();
         }
 
     }
