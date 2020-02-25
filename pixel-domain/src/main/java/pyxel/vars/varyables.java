@@ -7,6 +7,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class varyables {
+    public String URL_STS   = "https://travelinsurance.staysure.co.uk/quote/policy-details";
+    public String URL_AVN   = "https://quote.avantitravelinsurance.co.uk/quote/policy-details";
+    public String URL_EXP   = "";
+
     public String COUNTRY_EUROPE_LR     = "Italy";
     public String COUNTRY_EUROPE_HR     = "Turkey";
     public String COUNTRY_WORLD_LR      = "Australia";

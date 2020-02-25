@@ -55,7 +55,7 @@ public class BaseTest extends varyables {
     }
 
     public void url_sts() {
-        this.driver.get ("https://travelinsurance.staysure.co.uk/quote/policy-details");
+        this.driver.get (URL_STS);
     }
 
     public void policy_type_single_trip() {
