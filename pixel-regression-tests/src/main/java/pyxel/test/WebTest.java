@@ -18,11 +18,11 @@ public class WebTest extends BaseTest {
         url_web();
         policy_type_single_trip();
         going_on_cruise_yes();
-        from_location_isle_of_man();
+        from_location();
         to_location();
         multiple_destinations_yes();
         single_trip_start_date();
-        //single_trip_end_date();
+        single_trip_end_date();
         party_type();
         traveller_ages();
         marketing_preferences();
@@ -36,7 +36,7 @@ public class WebTest extends BaseTest {
         url_web();
         policy_type_annual_multi_trip();
         going_on_cruise_no();
-        from_location_jersey();
+        from_location();
         amt_area();
         single_trip_start_date();
         party_type();

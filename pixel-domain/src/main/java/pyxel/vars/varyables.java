@@ -7,9 +7,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class varyables {
-    public String URL_STS   = "https://travelinsurance.staysure.co.uk/quote/policy-details";
-    public String URL_AVN   = "https://quote.avantitravelinsurance.co.uk/quote/policy-details";
-    public String URL_EXP   = "https://expat.staysure.com/quote/policy-details";
+    public String DOMAIN_PRODUCT    = "EXP";
+
+    public String URL_STS       = "https://travelinsurance.staysure.co.uk/quote/policy-details";
+    public String URL_AVN       = "https://quote.avantitravelinsurance.co.uk/quote/policy-details";
+    public String URL_EXP       = "https://expat.staysure.com/quote/policy-details";
+
+    public String FROM_STS      = "UK3"; // UK1, UK3, UK4, UK5
+    public String FROM_AVN      = ""; // UK1, UK3, UK4, UK5
+    public String FROM_EXP      = "ES"; // FR, PT, ES
 
     public String COUNTRY_EUROPE_LR     = "Italy";
     public String COUNTRY_EUROPE_HR     = "Turkey";
@@ -22,17 +28,9 @@ public class varyables {
     public String REGION_WORLD_HR       = "WORLD_HR";
 
     public String PARTY_TYPE_GLOBAL         = "SINGLE_PARENT_FAMILY";
-    public String PARTY_TYPE_INDIVIDUAL     = "";
-    public String PARTY_TYPE_COUPLE         = "";
-    public String PARTY_TYPE_FAMILY         = "";
-    public String PARTY_TYPE_SINGLE_PARENT  = "";
-    public String PARTY_TYPE_OTHER          = "";
 
     public int NUMBER_OF_TRAVELLERS      = 3;
 
-    public int TRAVELLER_AGE_GLOBAL     = 30;
-
-    public int FULL_TIME_EDUCATION_AGE  = 21;
     public int[] TRAVELLER_AGE = new int[] {30,0,18};
 
     public int START_YEAR_GLOBAL    = 2020;

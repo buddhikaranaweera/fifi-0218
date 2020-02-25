@@ -55,7 +55,15 @@ public class BaseTest extends varyables {
     }
 
     public void url_web() {
-        this.driver.get (URL_STS);
+        if (DOMAIN_PRODUCT == "STS") {
+            this.driver.get (URL_STS);
+        }
+        else if (DOMAIN_PRODUCT == "AVN") {
+            this.driver.get (URL_AVN);
+        }
+        if (DOMAIN_PRODUCT == "EXP") {
+            this.driver.get (URL_EXP);
+        }
     }
 
     public void policy_type_single_trip() {
@@ -78,24 +86,36 @@ public class BaseTest extends varyables {
         going_on_cruise_no.click();
     }
 
-    public void from_location_uk() {
-        WebElement from_location_uk = this.driver.findElement(By.cssSelector("div.box:nth-child(1) > label:nth-child(1)"));
-        from_location_uk.click();
-    }
-
-    public void from_location_isle_of_man() {
-        WebElement from_location_isle_of_man = this.driver.findElement(By.cssSelector("#travelling-from > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > label:nth-child(1)"));
-        from_location_isle_of_man.click();
-    }
-
-    public void from_location_guernsey() {
-        WebElement from_location_guernsey = this.driver.findElement(By.cssSelector("#travelling-from > div:nth-child(2) > div:nth-child(2) > div:nth-child(3) > label:nth-child(1)"));
-        from_location_guernsey.click();
-    }
-
-    public void from_location_jersey() {
-        WebElement from_location_jersey = this.driver.findElement(By.cssSelector("#travelling-from > div:nth-child(2) > div:nth-child(2) > div:nth-child(4) > label:nth-child(1)"));
-        from_location_jersey.click();
+      public void from_location() {
+        if ((DOMAIN_PRODUCT == "STS") || (DOMAIN_PRODUCT == "AVN")) {
+            switch (FROM_STS) {
+                case "UK1":
+                    WebElement from_location_uk = this.driver.findElement(By.cssSelector("div.box:nth-child(1) > label:nth-child(1)"));
+                    from_location_uk.click();
+                case "UK3":
+                    WebElement from_location_isle_of_man = this.driver.findElement(By.cssSelector("#travelling-from > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > label:nth-child(1)"));
+                    from_location_isle_of_man.click();
+                case "UK4":
+                    WebElement from_location_guernsey = this.driver.findElement(By.cssSelector("#travelling-from > div:nth-child(2) > div:nth-child(2) > div:nth-child(3) > label:nth-child(1)"));
+                    from_location_guernsey.click();
+                case "UK5":
+                    WebElement from_location_jersey = this.driver.findElement(By.cssSelector("#travelling-from > div:nth-child(2) > div:nth-child(2) > div:nth-child(4) > label:nth-child(1)"));
+                    from_location_jersey.click();
+            }
+        }
+        else if (DOMAIN_PRODUCT == "EXP") {
+            switch (FROM_EXP) {
+                case "FR":
+                    Select expat_france = new Select(this.driver.findElement(By.cssSelector("#expatFromLocation")));
+                    expat_france.selectByValue(FROM_EXP);
+                case "PT":
+                    Select expat_portugal = new Select(this.driver.findElement(By.cssSelector("#expatFromLocation")));
+                    expat_portugal.selectByValue(FROM_EXP);
+                case "ES":
+                    Select expat_spain = new Select(this.driver.findElement(By.cssSelector("#expatFromLocation")));
+                    expat_spain.selectByValue(FROM_EXP);
+            }
+        }
     }
 
     public void to_location() {
