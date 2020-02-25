@@ -148,7 +148,6 @@ public class BaseTest extends varyables {
         multiple_destinations_no.click();
     }
 
-
     public void single_trip_start_date() {
         WebElement single_trip_start_date = this.driver.findElement(By.cssSelector("#datepicker-departure"));
         single_trip_start_date.click();
