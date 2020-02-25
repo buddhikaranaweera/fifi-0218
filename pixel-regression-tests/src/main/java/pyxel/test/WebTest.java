@@ -15,7 +15,7 @@ public class WebTest extends BaseTest {
     public void WebTestSTS() {
         StaysureHome stay = new StaysureHome(getDriver());
 
-        url_sts();
+        url_web();
         policy_type_single_trip();
         going_on_cruise_yes();
         from_location_isle_of_man();
@@ -33,7 +33,7 @@ public class WebTest extends BaseTest {
 
     //@Test
     public void AMTPolicy() {
-        url_sts();
+        url_web();
         policy_type_annual_multi_trip();
         going_on_cruise_no();
         from_location_jersey();
@@ -46,7 +46,7 @@ public class WebTest extends BaseTest {
 
     //@Test
     public void required_fields() {
-        url_sts();
+        url_web();
         travellerDetailsSubmit();
         validation_req_fields();
     }

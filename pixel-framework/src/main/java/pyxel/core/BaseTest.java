@@ -54,7 +54,7 @@ public class BaseTest extends varyables {
       */
     }
 
-    public void url_sts() {
+    public void url_web() {
         this.driver.get (URL_STS);
     }
 
