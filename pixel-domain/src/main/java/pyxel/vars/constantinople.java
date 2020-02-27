@@ -6,7 +6,8 @@ import org.openqa.selenium.WebElement;
 import java.util.Arrays;
 import java.util.List;
 
-public class varyables {
+public class constantinople {
+    public String BROWSER           = "CHROME";
     public String DOMAIN_PRODUCT    = "EXP";
 
     public String URL_STS       = "https://travelinsurance.staysure.co.uk/quote/policy-details";
@@ -21,6 +22,10 @@ public class varyables {
     public String COUNTRY_EUROPE_HR     = "Turkey";
     public String COUNTRY_WORLD_LR      = "Australia";
     public String COUNTRY_WORLD_HR      = "Canada";
+
+    public List<String> MULTIPLE_DESTINATIONS = Arrays.asList(
+            "France", "Turkey", "Australia", "Sri Lanka"
+    );
 
     public String REGION_EUROPE_LR      = "EUROPE_LR";
     public String REGION_EUROPE_HR      = "EUROPE_HR";

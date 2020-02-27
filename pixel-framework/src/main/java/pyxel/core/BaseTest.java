@@ -1,60 +1,61 @@
 package pyxel.core;
 
+import io.github.bonigarcia.wdm.ChromeDriverManager;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
-import pyxel.vars.varyables;
+import pyxel.vars.constantinople;
 
-import javax.print.DocFlavor;
 import java.util.Arrays;
 import java.util.List;
 
-public class BaseTest extends varyables {
+public class BaseTest extends constantinople {
 
     private WebDriver driver;
-
     public WebDriver getDriver() {
         return driver;
     }
 
     @BeforeSuite
+    /*
+    *   Using https://github.com/bonigarcia/webdrivermanager to get around having to keep web browser EXE files
+    *   https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager
+    * */
+
     public void beforeSuite() {
-     /*   System.setProperty("headless", "false"); // You can set this property elsewhere
-        String headless = System.getProperty("headless");
-
-        //ChromeDriverManager.chromedriver();
-        if("true".equals(headless)) {
-            ChromeOptions chromeOptions = new ChromeOptions();
-            chromeOptions.addArguments("--headless");
-            driver = new ChromeDriver(chromeOptions);
-        } else {
-            driver = new ChromeDriver();
+        if (BROWSER == "CHROME") {
+            ChromeDriverManager.chromedriver().setup();
+            driver=new ChromeDriver();
         }
-      */
-
-        WebDriverManager.firefoxdriver().setup();
-        driver = new FirefoxDriver();
+        else {
+            WebDriverManager.firefoxdriver().setup();
+            driver = new FirefoxDriver();
+        }
         driver.manage().window().maximize();
-
     }
 
     @AfterSuite
     public void afterSuite() {
-     /*   if(null != driver) {
+        /*
+        if(null != driver) {
             driver.close();
             driver.quit();
         }
-
-      */
+        */
     }
 
-    public void url_web() {
+    public void get_price_quote() {
+
+        /*
+        *   There are 3 websites representing 3 variations of the same insurance product.
+        * */
+
         if (DOMAIN_PRODUCT == "STS") {
             this.driver.get (URL_STS);
         }
@@ -66,27 +67,31 @@ public class BaseTest extends varyables {
         }
     }
 
+    // Select either Single Trip type or Annual Multi Trip type
     public void policy_type_single_trip() {
         WebElement policy_type_single_trip = this.driver.findElement(By.cssSelector("#cover > div:nth-child(2) > div:nth-child(2) > label:nth-child(1)"));
         policy_type_single_trip.click();
     }
-
     public void policy_type_annual_multi_trip() {
         WebElement policy_type_annual_multi_trip = this.driver.findElement(By.cssSelector("#cover > div:nth-child(2) > div:nth-child(3) > label:nth-child(1)"));
         policy_type_annual_multi_trip.click();
     }
 
+    // Select whether user is going on a cruise or not
     public void going_on_cruise_yes() {
         WebElement going_on_cruise_yes = this.driver.findElement(By.cssSelector("#going-cruise > div:nth-child(2) > div:nth-child(2) > label:nth-child(1)"));
         going_on_cruise_yes.click();
     }
-
     public void going_on_cruise_no() {
         WebElement going_on_cruise_no = this.driver.findElement(By.cssSelector("#going-cruise > div:nth-child(2) > div:nth-child(3) > label:nth-child(1)"));
         going_on_cruise_no.click();
     }
 
-      public void from_location() {
+    public void from_location() {
+        /*
+        *   Staysure and Avanti products are originated from UK while EXPAT from elsewhere in Europe.
+        * */
+
         if ((DOMAIN_PRODUCT == "STS") || (DOMAIN_PRODUCT == "AVN")) {
             switch (FROM_STS) {
                 case "UK1":
@@ -119,36 +124,53 @@ public class BaseTest extends varyables {
     }
 
     public void to_location() {
-        Select to_location = new Select(this.driver.findElement(By.cssSelector("#destinationSingle")));
-        to_location.selectByVisibleText(COUNTRY_EUROPE_LR);
+        /*
+        *   For Single Trip types users can select countries while Annual Multi Trips let user select regions.
+        * */
+
+        WebElement st = this.driver.findElement(By.cssSelector("#fld-cover-singletrip"));
+        WebElement amt = this.driver.findElement(By.cssSelector("#fld-cover-annualytrip"));
+
+        if (st.isSelected()) {
+            Select to_location = new Select(this.driver.findElement(By.cssSelector("#destinationSingle")));
+            to_location.selectByVisibleText(COUNTRY_EUROPE_LR);
+        }
+        else if (amt.isSelected()) {
+            Select amt_area = new Select(this.driver.findElement(By.cssSelector("#toLocationAnnual")));
+            amt_area.selectByValue(REGION_EUROPE_LR);
+        }
     }
 
-    public void amt_area() {
-        Select amt_area = new Select(this.driver.findElement(By.cssSelector("#toLocationAnnual")));
-        amt_area.selectByValue(REGION_EUROPE_LR);
+    public void multiple_destinations_no() {
+        WebElement st = this.driver.findElement(By.cssSelector("#fld-cover-singletrip"));
+
+        if (st.isSelected()) {
+            WebElement multiple_destinations_no = this.driver.findElement(By.cssSelector("#multiple-destination > div > div:nth-child(3) > label"));
+            multiple_destinations_no.click();
+        }
     }
 
     public void multiple_destinations_yes() {
-        WebElement multiple_destinations_yes = this.driver.findElement(By.cssSelector("#multiple-destination > div > div:nth-child(2) > label"));
-        multiple_destinations_yes.click();
+        WebElement st = this.driver.findElement(By.cssSelector("#fld-cover-singletrip"));
 
-        add_destination();
+        if (st.isSelected()) {
+            WebElement multiple_destinations_yes = this.driver.findElement(By.cssSelector("#multiple-destination > div > div:nth-child(2) > label"));
+            multiple_destinations_yes.click();
+            add_destination();
+        }
     }
 
     public void add_destination() {
-        WebElement add_another_destination = this.driver.findElement((By.cssSelector("#add-destination")));
-        add_another_destination.click();
+        for(int d = 0; d < MULTIPLE_DESTINATIONS.size(); d++) {
+            WebElement add_another_destination = this.driver.findElement((By.cssSelector("#add-destination")));
+            add_another_destination.click();
 
-        Select to_location_multi = new Select(this.driver.findElement(By.cssSelector("#destinationSingle1")));
-        to_location_multi.selectByVisibleText(COUNTRY_WORLD_LR);
+            Select to_location_multi = new Select(this.driver.findElement(By.cssSelector("#destinationSingle" +(d+1))));
+            to_location_multi.selectByVisibleText(MULTIPLE_DESTINATIONS.get(d));
+        }
     }
 
-    public void multiple_destinations_no () {
-        WebElement multiple_destinations_no = this.driver.findElement(By.cssSelector("#multiple-destination > div > div:nth-child(3) > label"));
-        multiple_destinations_no.click();
-    }
-
-    public void single_trip_start_date() {
+    public void trip_start_date() {
         WebElement single_trip_start_date = this.driver.findElement(By.cssSelector("#datepicker-departure"));
         single_trip_start_date.click();
 
@@ -162,7 +184,7 @@ public class BaseTest extends varyables {
         data_date.click();
     }
 
-    public void single_trip_end_date() {
+    public void trip_end_date() {
         WebElement single_trip_start_date = this.driver.findElement(By.cssSelector("#datepicker-return"));
         single_trip_start_date.click();
 
@@ -221,7 +243,6 @@ public class BaseTest extends varyables {
             if (this.driver.findElement(By.cssSelector("#yes_box_" + i + " > label:nth-child(1)")).isDisplayed()) {
                 this.driver.findElement(By.cssSelector("#yes_box_" + i + " > label:nth-child(1)")).click();
             }
-
         }
     }
 
@@ -266,13 +287,13 @@ public class BaseTest extends varyables {
 
     }
 
-    public void travellerDetailsSubmit() {
+    public void traveller_details_submit() {
         WebElement submitButton = this.driver.findElement(By.cssSelector("#btnSubmit"));
         submitButton.click();
     }
 
     public void validation_req_fields() {
-        travellerDetailsSubmit();
+        traveller_details_submit();
 
         List<String> elementArray = Arrays.asList(
                 "#policyTypeError", "#going-cruiseError", "#destinationLocationError", "#departureDateError",
@@ -285,7 +306,7 @@ public class BaseTest extends varyables {
                 System.out.println(policyTypeError.getText());
             }
             else {
-                travellerDetailsSubmit();
+                traveller_details_submit();
             }
         }
 
