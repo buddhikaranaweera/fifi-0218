@@ -67,7 +67,7 @@ public class BaseTest extends constantinople {
         }
     }
 
-    // Select either Single Trip type or Annual Multi Trip type
+    // Select either Single Trip type or Annual Multi Trip type.
     public void policy_type_single_trip() {
         WebElement policy_type_single_trip = this.driver.findElement(By.cssSelector("#cover > div:nth-child(2) > div:nth-child(2) > label:nth-child(1)"));
         policy_type_single_trip.click();
@@ -77,7 +77,7 @@ public class BaseTest extends constantinople {
         policy_type_annual_multi_trip.click();
     }
 
-    // Select whether user is going on a cruise or not
+    // Select whether user is going on a cruise or not.
     public void going_on_cruise_yes() {
         WebElement going_on_cruise_yes = this.driver.findElement(By.cssSelector("#going-cruise > div:nth-child(2) > div:nth-child(2) > label:nth-child(1)"));
         going_on_cruise_yes.click();
@@ -93,33 +93,44 @@ public class BaseTest extends constantinople {
         * */
 
         if ((DOMAIN_PRODUCT == "STS") || (DOMAIN_PRODUCT == "AVN")) {
-            switch (FROM_STS) {
+            WebElement from_location_uk = this.driver.findElement(By.cssSelector("div.box:nth-child(1) > label:nth-child(1)"));
+            WebElement from_location_isle_of_man = this.driver.findElement(By.cssSelector("#travelling-from > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > label:nth-child(1)"));
+            WebElement from_location_guernsey = this.driver.findElement(By.cssSelector("#travelling-from > div:nth-child(2) > div:nth-child(2) > div:nth-child(3) > label:nth-child(1)"));
+            WebElement from_location_jersey = this.driver.findElement(By.cssSelector("#travelling-from > div:nth-child(2) > div:nth-child(2) > div:nth-child(4) > label:nth-child(1)"));
+
+            switch (FROM_UK) {
                 case "UK1":
-                    WebElement from_location_uk = this.driver.findElement(By.cssSelector("div.box:nth-child(1) > label:nth-child(1)"));
                     from_location_uk.click();
+                    break;
                 case "UK3":
-                    WebElement from_location_isle_of_man = this.driver.findElement(By.cssSelector("#travelling-from > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > label:nth-child(1)"));
                     from_location_isle_of_man.click();
+                    break;
                 case "UK4":
-                    WebElement from_location_guernsey = this.driver.findElement(By.cssSelector("#travelling-from > div:nth-child(2) > div:nth-child(2) > div:nth-child(3) > label:nth-child(1)"));
                     from_location_guernsey.click();
+                    break;
                 case "UK5":
-                    WebElement from_location_jersey = this.driver.findElement(By.cssSelector("#travelling-from > div:nth-child(2) > div:nth-child(2) > div:nth-child(4) > label:nth-child(1)"));
                     from_location_jersey.click();
+                    break;
             }
+
         }
         else if (DOMAIN_PRODUCT == "EXP") {
+            Select expat_france = new Select(this.driver.findElement(By.cssSelector("#expatFromLocation")));
+            Select expat_portugal = new Select(this.driver.findElement(By.cssSelector("#expatFromLocation")));
+            Select expat_spain = new Select(this.driver.findElement(By.cssSelector("#expatFromLocation")));
+
             switch (FROM_EXP) {
                 case "FR":
-                    Select expat_france = new Select(this.driver.findElement(By.cssSelector("#expatFromLocation")));
                     expat_france.selectByValue(FROM_EXP);
+                    break;
                 case "PT":
-                    Select expat_portugal = new Select(this.driver.findElement(By.cssSelector("#expatFromLocation")));
                     expat_portugal.selectByValue(FROM_EXP);
+                    break;
                 case "ES":
-                    Select expat_spain = new Select(this.driver.findElement(By.cssSelector("#expatFromLocation")));
                     expat_spain.selectByValue(FROM_EXP);
+                    break;
             }
+
         }
     }
 
@@ -133,14 +144,29 @@ public class BaseTest extends constantinople {
 
         if (st.isSelected()) {
             Select to_location = new Select(this.driver.findElement(By.cssSelector("#destinationSingle")));
-            to_location.selectByVisibleText(COUNTRY_EUROPE_LR);
+            to_location.selectByVisibleText(MULTIPLE_DESTINATIONS.get(0));
         }
         else if (amt.isSelected()) {
-            Select amt_area = new Select(this.driver.findElement(By.cssSelector("#toLocationAnnual")));
-            amt_area.selectByValue(REGION_EUROPE_LR);
+            if (AMT_REGION == 0) {
+                Select amt_area = new Select(this.driver.findElement(By.cssSelector("#toLocationAnnual")));
+                amt_area.selectByValue(AMT_REGIONS.get(0));
+            }
+            else if (AMT_REGION == 1) {
+                Select amt_area = new Select(this.driver.findElement(By.cssSelector("#toLocationAnnual")));
+                amt_area.selectByValue(AMT_REGIONS.get(1));
+            }
+            else if (AMT_REGION == 2) {
+                Select amt_area = new Select(this.driver.findElement(By.cssSelector("#toLocationAnnual")));
+                amt_area.selectByValue(AMT_REGIONS.get(2));
+            }
+            else if (AMT_REGION == 3) {
+                Select amt_area = new Select(this.driver.findElement(By.cssSelector("#toLocationAnnual")));
+                amt_area.selectByValue(AMT_REGIONS.get(3));
+            }
         }
     }
 
+    // Select whether policy covers for multiple destinations or only single destination.
     public void multiple_destinations_no() {
         WebElement st = this.driver.findElement(By.cssSelector("#fld-cover-singletrip"));
 
@@ -149,7 +175,6 @@ public class BaseTest extends constantinople {
             multiple_destinations_no.click();
         }
     }
-
     public void multiple_destinations_yes() {
         WebElement st = this.driver.findElement(By.cssSelector("#fld-cover-singletrip"));
 
@@ -159,13 +184,12 @@ public class BaseTest extends constantinople {
             add_destination();
         }
     }
-
     public void add_destination() {
-        for(int d = 0; d < MULTIPLE_DESTINATIONS.size(); d++) {
+        for(int d = 1; d < MULTIPLE_DESTINATIONS.size(); d++) {
             WebElement add_another_destination = this.driver.findElement((By.cssSelector("#add-destination")));
             add_another_destination.click();
 
-            Select to_location_multi = new Select(this.driver.findElement(By.cssSelector("#destinationSingle" +(d+1))));
+            Select to_location_multi = new Select(this.driver.findElement(By.cssSelector("#destinationSingle" +(d))));
             to_location_multi.selectByVisibleText(MULTIPLE_DESTINATIONS.get(d));
         }
     }
@@ -250,7 +274,6 @@ public class BaseTest extends constantinople {
         WebElement full_time_education_yes = this.driver.findElement(By.cssSelector("#yes_box_0 > label:nth-child(1)"));
         full_time_education_yes.click();
     }
-
     public void full_time_education_no() {
         WebElement full_time_education_no = this.driver.findElement(By.cssSelector("#no_box_1 > label:nth-child(1)"));
         full_time_education_no.click();
@@ -270,10 +293,10 @@ public class BaseTest extends constantinople {
 
         for(int m = 0; m < MARKETING_PREFERENCES_OPT.size(); m++) {
             switch (MARKETING_PREFERENCES_OPT.get(m)) {
-                case "TELEPHONE":
+                case "EMAIL":
                     marketing_telephone.click();
                     break;
-                case "EMAIL":
+                case "TELEPHONE":
                     marketing_email.click();
                     break;
                 case "POST":
